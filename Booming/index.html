@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* .box {
+            height: 100px;
+            width: 100px;
+            background: red;
+            position: relative;
+        } */
+
+        .box img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .Boom-Partical_Holder {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        .wrapper{
+            height: 100%;
+            width: 100%;
+            background-color: #f8f8f8;
+        }
+        .container{
+            /* margin: 0 14px; */
+            position: absolute;
+            top:53px;
+            left: 0;
+            height: 125px;
+            width:100%;
+            box-sizing: border-box;
+            background-color:#f8f8f8; 
+        }
+        .avart{
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            position:absolute;
+            left: 0;
+            top: 0;
+
+        }
+        .common{
+            display: inline-block;
+            width: 287px;
+            height: 125px;
+            background: url('./images/all.jpg');
+            background-repeat: no-repeat;
+           
+            position: absolute;
+            left: 39px;
+            top: 0;
+        }
+        .zan{
+            position: absolute;
+            width: 154px;
+            height: 25px;
+            top: 97px;
+            left: 181px;
+            background: url('./images/white.png');
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .zan .box>img{
+            width: 21px;
+            height: 21px;
+            padding-left: 2px;   
+            vertical-align: bottom;
+        }
+        .boxAnimation{
+         animation: scale2 .5s  linear;
+        }
+        @keyframes scale2{
+            0%{
+                transform: scale(0);  /*开始为原始大小*/
+            }
+            50%{
+                transform: scale(1.5);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+        .zan .zan-text{
+            color: #b46952;
+            font-size: 12px;
+            /* line-height: 12px; */
+            font-weight: 550;
+            margin-left: 5px;
+            margin-right: 7px;
+        }
+        .zan .message{
+            border-left:1px solid #ececec; 
+            padding-left:7px; 
+            width: 22px;
+            height: 22px;
+            
+        }
+        .zan .message>img{
+            width: 22px;
+            height: 22px;
+            position: relative;
+            /* top: -3px; */
+
+        }
+        .zan .replay{
+            margin-left:6px ;
+            font-size: 12px;
+            /* line-height: 12px; */
+        }
+        h4{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%);
+
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- <div class="box"></div> -->
+    <div class="wrapper">
+            <h4>精彩评论</h1>
+                <div class="container">
+                    <div class="avart">
+                        <img src="./images/avart.jpg" alt="" class="avavt-img">
+                    </div>
+                    <div class="common"></div>
+                    <div class="zan">
+                        <div class="box"><img src="./images/good.png" alt=""></div>
+                        <div class="zan-text">100人赞</div>
+                        <div class="message"><img src="./images/message.jpg" alt=""></div>
+                        <div class="replay">回复</div>
+                    </div>
+                </div>
+
+    </div>
+    
+
+
+    <script src="https://www.zhangxinxu.com/GitHub/Tween/tween.js"></script>
+    <script src="./partical/partical.js"></script>
+    <script src="./boom/boom.js"></script>
+    <script>
+        // 一个文件一个类，幕块华
+        // es6 class gulp webpack 工作流 js=>es5 function
+        let boomChildList = [];
+        const icon = ['./images/movie.png',
+            './images/laugh.png',
+            './images/music.png',
+            './images/run.png',
+            './images/shoe.png',
+            './images/rainbow.png',
+            './images/mkf.png',
+            './images/kl.png',
+            './images/cup.png',
+            './images/coffee.png',
+            './images/regou.jpg',
+            './images/2.png',
+            './images/3.png',
+            './images/4.png',
+            './images/5.png',
+            './images/6.png',
+            './images/7.png',
+            './images/8.png',
+            './images/9.png',
+            './images/10.png',
+            './images/11.png',
+            './images/12.png',
+            './images/13.png',
+            './images/14.png',
+            './images/15.png'
+    
+    
+                ]
+        // img src 都不一样 dm src 10张 图片的一张
+        const oBox = document.querySelector('.box');
+
+        
+        
+        //初始化粒子列表
+        for (let i = 0; i < icon.length; i++) {
+            let temDom = document.createElement('div')
+            temDom.className = 'demoDom';
+            temDom.innerHTML = `<img src="${icon[i]}">`
+            // oBox.appendChild(temDom);
+
+            boomChildList.push(temDom);
+        }
+        let boom = new Boom({
+            childList: boomChildList,
+            boomNumber: 10,
+            rotate: 0,
+            spread: 360,
+            delayRange: 100,//时间间隔
+            power: 3//爆炸力量
+        });
+        boom.setContainer(oBox);
+        oBox.addEventListener('click', () => {
+            boom.boom();
+            oBox.classList.add('boxAnimation')
+            oBox.addEventListener("animationend",()=>{
+                oBox.classList.remove('boxAnimation')//动画播放完成，移除动画类，下次再添加
+            })
+        
+            
+        })
+    </script>
+
+</body>
+
+</html>
